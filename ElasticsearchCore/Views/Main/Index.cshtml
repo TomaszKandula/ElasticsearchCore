@@ -1,20 +1,88 @@
-﻿@model Nest.ISearchResponse<BookViewModel>
-
-<br />
-<h4>Search Title field:</h4>
-<form asp-controller="Main" asp-action="Index" method="post">
-    <input type="text" name="aquery" />
-    <input type="submit" value="Search" />
-</form>
-
-@if (Model.Documents.Any())
-{
-    <br />
-    <h4>Search Results:</h4>
+﻿<dv>
+    <p>
+        Example of the popular open-source search and analytics engine – Elasticsearch to power a simple search system in ASP.NET Core.
+    </p>
+</dv>
+<hr />
+<div>
+    <p>
+        Few key features follows:
+    </p>
     <ul>
-        @foreach (var book in Model.Documents)
-        {
-            <li>Title: @book.Title (ISBN: @book.Isbn)</li>
-        }
+        <li>
+            Distributed and scalable, including the ability for sharding and replicas.
+        </li>
+        <li>
+            Documents uses JSON format.
+        </li>
+        <li>
+            All interactions are done over a REST API.
+        </li>
+        <li>
+            Many software like popular Kibana which allows interrogation and analysis of data.
+        </li>
+        <li>
+            Loads of client-side libraries for all popular languages.
+        </li>
     </ul>
+</div>
+<hr />
+<div>
+    <p>
+        Example pages:
+    </p>
+    <ul>
+        <li>
+            Title Search - allow to search via Title, when no "Term" is given, then we return first ten books from the database. For given search text, we return items that contains searched text.
+        </li>
+        <li>
+            Page Count - This page returns range aggregation of the books pages (this is done by using "Aggregate" function).
+        </li>
+        <li>
+            Categories - This page returns total count for appearing categories (aggregation on text fields) in the whole database.
+        </li>
+    </ul>
+</div>
+<hr />
+<div>
+    <p>
+        Single index in example dataset:
+    </p>
+
+    <!-- HTML generated using hilite.me -->
+    <div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;">
+<pre style="margin: 0; line-height: 125%">
+{ 
+    <span style="color: #007700">&quot;title&quot;</span>:<span style="background-color: #fff0f0">&quot;string&quot;</span>, 
+    <span style="color: #007700">&quot;isbn&quot;</span>:<span style="background-color: #fff0f0">&quot;string&quot;</span>, 
+    <span style="color: #007700">&quot;pageCount&quot;</span>:<span style="color: #0000DD; font-weight: bold">0</span>, 
+    <span style="color: #007700">&quot;thumbnailUrl&quot;</span>:<span style="background-color: #fff0f0">&quot;string&quot;</span>, 
+    <span style="color: #007700">&quot;shortDescription&quot;</span>:<span style="background-color: #fff0f0">&quot;string&quot;</span>, 
+    <span style="color: #007700">&quot;longDescription&quot;</span>:<span style="background-color: #fff0f0">&quot;string&quot;</span>, 
+    <span style="color: #007700">&quot;status&quot;</span>:<span style="background-color: #fff0f0">&quot;string&quot;</span>, 
+    <span style="color: #007700">&quot;authors&quot;</span>:<span style="background-color: #fff0f0">&quot;string&quot;</span>, 
+    <span style="color: #007700">&quot;categories&quot;</span>:<span style="background-color: #fff0f0">&quot;string&quot;</span> 
 }
+</pre>
+    </div>
+    <!-- HTML generated using hilite.me -->
+
+    <br />
+    <p>
+        Assuming you are running Elasticsearch engine in Docker on port 9200, to load your own dataset from JSON file, execute following command:
+    </p>
+
+<!-- HTML generated using hilite.me -->
+<div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;">
+<pre style="margin: 0; line-height: 125%">
+curl -XPOST localhost:9200/books/book/_bulk --data-binary @@dataset.json -H <span style="background-color: #fff0f0">&quot;Content-Type: application/json&quot;</span>
+</pre>
+</div>
+<!-- HTML generated using hilite.me -->
+
+    <br />
+    <p>
+        Please note: ensure that your file will have empty newline and the end of the file.
+    </p>
+
+</div>

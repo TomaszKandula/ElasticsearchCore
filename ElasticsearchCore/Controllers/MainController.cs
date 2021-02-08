@@ -17,12 +17,17 @@ namespace ElasticsearchCore.Controllers
             FClient = AClient;
         }
 
+        public IActionResult Index()
+        {
+            return View();
+        }
+
         /// <summary>
-        /// 
+        /// Return book that contains searched text in Title field; or first ten books.
         /// </summary>
         /// <param name="AQuery"></param>
         /// <returns></returns>
-        public IActionResult Index(string AQuery)
+        public IActionResult TitleSearch(string AQuery)
         {
             if (!string.IsNullOrWhiteSpace(AQuery)) 
             {
@@ -37,7 +42,7 @@ namespace ElasticsearchCore.Controllers
                 return View(LShowResult);
             }
 
-            FLogger.LogInformation($"Display first 10 results.");
+            FLogger.LogInformation($"Display first ten results.");
             var LShowAll = FClient
                 .Search<BookViewModel>(Search => Search
                 .Query(Query => Query
@@ -47,7 +52,7 @@ namespace ElasticsearchCore.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Aggregation of "pageCounts" field.
         /// </summary>
         /// <returns></returns>
         public IActionResult PageCount() 
@@ -67,12 +72,12 @@ namespace ElasticsearchCore.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Aggregation of filtered "categories" term.
         /// </summary>
         /// <returns></returns>
         public IActionResult Categories() 
         {
-            FLogger.LogInformation("Return kewords count.");
+            FLogger.LogInformation("Return aggregation of filtered terms.");
             return View(FClient.Search<BookViewModel>(Search => Search
                 .Query(Query => Query
                 .MatchAll())

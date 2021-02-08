@@ -1,0 +1,21 @@
+﻿@model Nest.ISearchResponse<BookViewModel>
+
+<br />
+<h4>Search Title field:</h4>
+<form asp-controller="Main" asp-action="TitleSearch" method="post">
+    <input type="text" name="aquery" />
+    <input type="submit" value="Search" />
+</form>
+
+@if (Model.Documents.Any())
+{
+    <br />
+    <h4>Search Results:</h4>
+    <br />
+    <ul>
+        @foreach (var book in Model.Documents)
+        {
+            <li>Title: @book.Title (ISBN: @book.Isbn)</li>
+        }
+    </ul>
+}
