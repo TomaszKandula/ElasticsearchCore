@@ -1,0 +1,17 @@
+﻿@model Nest.ISearchResponse<BookViewModel>
+
+<br />
+@if (Model.Aggregations != null)
+{
+    <h4>Aggregations</h4>
+    @if (Model.Aggregations.ContainsKey("categories"))
+    {
+        <h4>Categories (Terms)</h4>
+        <ul>
+            @foreach (var bucket in Model.Aggregations.Terms("categories").Buckets)
+            {
+                <li>@bucket.Key: @bucket.DocCount</li>
+            }
+        </ul>
+    }
+}

@@ -1,0 +1,17 @@
+﻿@model Nest.ISearchResponse<BookViewModel>
+
+<br />
+@if (Model.Aggregations != null)
+{
+    <h4>Aggregations</h4>
+    @if (Model.Aggregations.ContainsKey("pageCounts"))
+    {
+        <h4>Page Count (Ranges)</h4>
+        <ul>
+            @foreach (var bucket in Model.Aggregations.Range("pageCounts").Buckets)
+            {
+                <li>@bucket.Key: @bucket.DocCount</li>
+            }
+        </ul>
+    }
+}
