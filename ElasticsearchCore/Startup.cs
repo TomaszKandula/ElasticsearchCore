@@ -11,7 +11,7 @@ namespace ElasticsearchCore
 {
     public class Startup
     {
-        public IConfiguration Configuration { get; }
+        private IConfiguration Configuration { get; }
 
         public Startup(IConfiguration AConfiguration)
         {
