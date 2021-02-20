@@ -5,7 +5,7 @@ Example of the popular open-source search and analytics engine – Elasticsearch
 ## Tech-Stack
 
 1. RazorPages (NET Core 3.1 / C# language).
-1. NEST - Official Elasticsearch Client.
+1. NEST - [Official Elasticsearch Client](https://github.com/elastic/elasticsearch-net).
 
 ## Features
 
