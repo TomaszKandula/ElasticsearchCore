@@ -5,6 +5,12 @@ VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElasticsearchCore", "ElasticsearchCore\ElasticsearchCore.csproj", "{FB9802FA-8A9A-491A-9AE8-55044D4B4D46}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{1ABD3806-5670-4AF0-9C07-3CDC04E3FE6B}"
+ProjectSection(SolutionItems) = preProject
+	Database\README.md = Database\README.md
+	Database\dataset.json = Database\dataset.json
+EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
