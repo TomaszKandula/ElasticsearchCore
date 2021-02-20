@@ -48,7 +48,7 @@ Assuming you are running Elasticsearch engine in Docker on port 9200, to load yo
 
 Ensure that your file will have empty newline and the end of the file. Additionally, if using PowerShell, make sure to use backtick before `@` character.
 
-# End Note
+## End Note
 
 A comperhensive article about Elasticsearch can be found at Knowi portal: [Elasticsearch: What It Is, How It Works, And What It’s Used For](https://www.knowi.com/blog/what-is-elastic-search/)
 
