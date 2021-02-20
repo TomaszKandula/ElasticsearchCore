@@ -1,6 +1,6 @@
 ﻿namespace ElasticsearchCore.Models
 {
-    public class BookViewModel
+    public class BookModel
     {
         public string Title { get; set; }
 
