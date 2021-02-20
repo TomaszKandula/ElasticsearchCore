@@ -32,7 +32,7 @@ namespace ElasticsearchCore.Controllers
             if (!string.IsNullOrWhiteSpace(AQuery)) 
             {
                 var LShowResult = FClient
-                    .Search<BookViewModel>(Search => Search
+                    .Search<BookModel>(Search => Search
                     .Query(Query => Query
                     .Match(Match => Match
                     .Field(Field => Field.Title)
@@ -44,7 +44,7 @@ namespace ElasticsearchCore.Controllers
 
             FLogger.LogInformation($"Display first ten results.");
             var LShowAll = FClient
-                .Search<BookViewModel>(Search => Search
+                .Search<BookModel>(Search => Search
                 .Query(Query => Query
                 .MatchAll()));
 
@@ -58,7 +58,7 @@ namespace ElasticsearchCore.Controllers
         public IActionResult PageCount() 
         {
             FLogger.LogInformation("Return page counts.");
-            return View(FClient.Search<BookViewModel>(Search => Search
+            return View(FClient.Search<BookModel>(Search => Search
                 .Query(Query => Query
                 .MatchAll())
                 .Aggregations(Aggregate => Aggregate
@@ -78,7 +78,7 @@ namespace ElasticsearchCore.Controllers
         public IActionResult Categories() 
         {
             FLogger.LogInformation("Return aggregation of filtered terms.");
-            return View(FClient.Search<BookViewModel>(Search => Search
+            return View(FClient.Search<BookModel>(Search => Search
                 .Query(Query => Query
                 .MatchAll())
                 .Aggregations(Aggregate => Aggregate
@@ -94,7 +94,7 @@ namespace ElasticsearchCore.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel 
+            return View(new ErrorModel 
             { 
                 RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier 
             });
