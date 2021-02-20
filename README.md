@@ -50,5 +50,4 @@ Ensure that your file will have empty newline and the end of the file. Additiona
 
 ## End Note
 
-A comperhensive article about Elasticsearch can be found at Knowi portal: [Elasticsearch: What It Is, How It Works, And What It’s Used For](https://www.knowi.com/blog/what-is-elastic-search/)
-
+A comperhensive article about Elasticsearch can be found at Knowi portal: [Elasticsearch: What It Is, How It Works, And What It’s Used For](https://www.knowi.com/blog/what-is-elastic-search/).
