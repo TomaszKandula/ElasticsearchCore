@@ -3,7 +3,7 @@
 <br />
 <h4>Search Title field:</h4>
 <form asp-controller="Main" asp-action="TitleSearch" method="post">
-    <input type="text" name="aquery" />
+    <input type="text" name="AInputQuery" />
     <input type="submit" value="Search" />
 </form>
 
@@ -13,9 +13,9 @@
     <h4>Search Results:</h4>
     <br />
     <ul>
-        @foreach (var book in Model.Documents)
+        @foreach (var LBook in Model.Documents)
         {
-            <li>Title: @book.Title (ISBN: @book.Isbn)</li>
+            <li>Title: @LBook.Title (ISBN: @LBook.Isbn)</li>
         }
     </ul>
 }

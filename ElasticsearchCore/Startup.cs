@@ -14,11 +14,9 @@ namespace ElasticsearchCore
         private IConfiguration Configuration { get; }
 
         public Startup(IConfiguration AConfiguration)
-        {
-            Configuration = AConfiguration;
-        }
+            => Configuration = AConfiguration;
 
-        public void ConfigureServices(IServiceCollection AServices)
+        public static void ConfigureServices(IServiceCollection AServices)
         {
             var LPool = new SingleNodeConnectionPool(new Uri("http://localhost:9200"));
             var LSettings = new ConnectionSettings(LPool).DefaultIndex("books");
@@ -28,17 +26,13 @@ namespace ElasticsearchCore
             AServices.AddControllersWithViews();
         }
 
-        public void Configure(IApplicationBuilder ABuilder, IWebHostEnvironment AEnvironment)
+        public static void Configure(IApplicationBuilder ABuilder, IWebHostEnvironment AEnvironment)
         {
             if (AEnvironment.IsDevelopment())
-            {
                 ABuilder.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                ABuilder.UseExceptionHandler("/Main/Error");
-                ABuilder.UseHsts();
-            }
+
+            ABuilder.UseExceptionHandler("/Main/Error");
+            ABuilder.UseHsts();
             ABuilder.UseHttpsRedirection();
             ABuilder.UseStaticFiles();
             ABuilder.UseRouting();

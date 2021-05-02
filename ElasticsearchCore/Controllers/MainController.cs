@@ -9,6 +9,7 @@ namespace ElasticsearchCore.Controllers
     public class MainController : Controller
     {
         private readonly ILogger<MainController> FLogger;
+        
         private readonly ElasticClient FClient;
 
         public MainController(ILogger<MainController> ALogger, ElasticClient AClient)
@@ -17,35 +18,32 @@ namespace ElasticsearchCore.Controllers
             FClient = AClient;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+        public IActionResult Index() => View();
 
         /// <summary>
         /// Return book that contains searched text in Title field; or first ten books.
         /// </summary>
-        /// <param name="AQuery"></param>
+        /// <param name="AInputQuery"></param>
         /// <returns></returns>
-        public IActionResult TitleSearch(string AQuery)
+        public IActionResult TitleSearch(string AInputQuery)
         {
-            if (!string.IsNullOrWhiteSpace(AQuery)) 
+            if (!string.IsNullOrWhiteSpace(AInputQuery)) 
             {
                 var LShowResult = FClient
-                    .Search<BookModel>(Search => Search
-                    .Query(Query => Query
-                    .Match(Match => Match
-                    .Field(Field => Field.Title)
-                    .Query(AQuery))));
+                    .Search<BookModel>(ASearch => ASearch
+                    .Query(AQuery => AQuery
+                    .Match(AMatch => AMatch
+                    .Field(ABookModel => ABookModel.Title)
+                    .Query(AInputQuery))));
 
-                FLogger.LogInformation($"Searched phrase: {AQuery}.");
+                FLogger.LogInformation("{AInputQuery}",$"Searched phrase: {AInputQuery}");
                 return View(LShowResult);
             }
 
-            FLogger.LogInformation($"Display first ten results.");
+            FLogger.LogInformation("Display first ten results");
             var LShowAll = FClient
-                .Search<BookModel>(Search => Search
-                .Query(Query => Query
+                .Search<BookModel>(ASearch => ASearch
+                .Query(AQuery => AQuery
                 .MatchAll()));
 
             return View(LShowAll);
@@ -57,17 +55,17 @@ namespace ElasticsearchCore.Controllers
         /// <returns></returns>
         public IActionResult PageCount() 
         {
-            FLogger.LogInformation("Return page counts.");
-            return View(FClient.Search<BookModel>(Search => Search
-                .Query(Query => Query
+            FLogger.LogInformation("Return page counts");
+            return View(FClient.Search<BookModel>(ASearch => ASearch
+                .Query(AQuery => AQuery
                 .MatchAll())
-                .Aggregations(Aggregate => Aggregate
-                .Range("pageCounts", Range => Range
-                .Field(Field => Field.PageCount)
-                .Ranges(Ranges => Ranges
-                    .From(0), Ranges => Ranges
-                    .From(200).To(400), Ranges => Ranges
-                    .From(400).To(600), Ranges => Ranges
+                .Aggregations(AAggregate => AAggregate
+                .Range("pageCounts", ARange => ARange
+                .Field(ABookModel => ABookModel.PageCount)
+                .Ranges(ARanges => ARanges
+                    .From(0), ARanges => ARanges
+                    .From(200).To(400), ARanges => ARanges
+                    .From(400).To(600), ARanges => ARanges
                     .From(600))))));
         }
 
@@ -77,19 +75,16 @@ namespace ElasticsearchCore.Controllers
         /// <returns></returns>
         public IActionResult Categories() 
         {
-            FLogger.LogInformation("Return aggregation of filtered terms.");
-            return View(FClient.Search<BookModel>(Search => Search
-                .Query(Query => Query
+            FLogger.LogInformation("Return aggregation of filtered terms");
+            return View(FClient.Search<BookModel>(ASearch => ASearch
+                .Query(AQuery => AQuery
                 .MatchAll())
-                .Aggregations(Aggregate => Aggregate
-                .Terms("categories", Terms => Terms
+                .Aggregations(AAggregate => AAggregate
+                .Terms("categories", ATerms => ATerms
                 .Field("categories.keyword")))));
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+        public IActionResult Privacy() => View();
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

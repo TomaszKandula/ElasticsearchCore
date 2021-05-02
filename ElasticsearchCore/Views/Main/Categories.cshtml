@@ -9,9 +9,9 @@
     {
         <h4>Categories (Terms)</h4>
         <ul>
-            @foreach (var bucket in Model.Aggregations.Terms("categories").Buckets)
+            @foreach (var LBucket in Model.Aggregations.Terms("categories").Buckets)
             {
-                <li>@bucket.Key: @bucket.DocCount</li>
+                <li>@LBucket.Key: @LBucket.DocCount</li>
             }
         </ul>
     }
